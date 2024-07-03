@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] public float Speed;        //‰ñ“]‰Á‘¬—Í
-    [SerializeField] public float SpeedMax;     //Å‘å‰ñ“]‘¬“x
-    [SerializeField] public int AttackPower;    
+    [SerializeField] public float speed_coefficient = 1.0f;        //“Š±‘¬“x•â³
+    [SerializeField] public int AttackPower = 1;    
     [SerializeField] public float AirRes;
     [SerializeField] private int hitSE_enemy_num;
     [SerializeField] private int hitSE_destroyObj_num;
