@@ -20,6 +20,9 @@ public class NMP_Tail : MonoBehaviour
 
     private bool is_catched = true;
 
+    [SerializeField] private GameObject body;
+    [SerializeField] private GameObject wind;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,7 +31,7 @@ public class NMP_Tail : MonoBehaviour
     void Update()
     {
         //ハンマー回転
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && is_catched)
         {
             vec_throw_z += 360.0f * (Time.deltaTime / speed_swing);
             if(vec_throw_z > 180.0f)
@@ -41,15 +44,28 @@ public class NMP_Tail : MonoBehaviour
         }
 
         //ハンマー射出
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && is_catched)
         {
             is_catched = false;
             rb.isKinematic = false;
             rb.AddForce(transform.right * power_throw, ForceMode.Impulse);
+
+            // 現在の位置からターゲット位置への方向ベクトルを計算（z軸は無視）
+            Vector3 targetDirection = new Vector3(body.transform.position.x - transform.position.x, body.transform.position.y - transform.position.y, body.transform.position.z - transform.position.z);
+
+            Vector3 normalizedDirection = targetDirection.normalized;
+
+            float anglex = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg;
+
+            Quaternion rotation = Quaternion.Euler(-anglex, 90, 0);
+
+            GameObject newWind = Instantiate(wind, transform.position, rotation);
+
+            Destroy(newWind, 2.0f);
         }
 
         //ハンマー回収
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && !is_catched)
         {
             CatchTail();
         }
