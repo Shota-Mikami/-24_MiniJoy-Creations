@@ -46,13 +46,13 @@ public class Relese : MonoBehaviour
             {
                 if (transform.GetChild(0).gameObject.transform.childCount == 1 && transform.GetChild(0).gameObject.transform.GetChild(0).gameObject != null)
                 {
-                    speed_max = transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Ball>().SpeedMax;
-                    m_speed = transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Ball>().Speed;
+                    //speed_max = transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Ball>().SpeedMax;
+                    //m_speed = transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Ball>().Speed;
                 }
                 else
                 { 
-                    speed_max = transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Ball>().SpeedMax;
-                    m_speed = transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Ball>().Speed;
+                    //speed_max = transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Ball>().SpeedMax;
+                    //m_speed = transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Ball>().Speed;
                 }
             }
 
