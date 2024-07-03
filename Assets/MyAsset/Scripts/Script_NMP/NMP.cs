@@ -69,8 +69,12 @@ public class NMP : MonoBehaviour
         if (player_body_model)
             player_body_model.transform.position = body.transform.position - new Vector3(0.0f, 1.0f, 0.0f);
         if (tail.GetComponent<NMP_Tail>().GetIsCatched())
+        {
+            player_tail_model.transform.localPosition = default;
             return;
+        }
         if (player_tail_model)
             player_tail_model.transform.position = tail.transform.position;
+        
     }
 }
