@@ -42,6 +42,13 @@ public class camera : MonoBehaviour
             isRight = false;
         }
 
+        lerpRatio += lerpSpeed;
+        lerpRatio = Mathf.Min(lerpRatio, 1.0f);
+        if (isRight != oldisRight)
+        {
+            lerpRatio = 0.0f;
+        }
+
         if (isRight)
         {
             cameraTargetPos = new Vector3(target.transform.position.x + cameraOffsetXY.x, target.transform.position.y + cameraOffsetXY.y, transform.position.z);
@@ -52,14 +59,6 @@ public class camera : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, cameraTargetPos, lerpRatio);
-
-        lerpRatio += lerpSpeed;
-        lerpRatio = Mathf.Min(lerpRatio, 1.0f);
-        if(isRight != oldisRight)
-        {
-            lerpRatio = 0.0f;
-            Debug.Log("‚Ó‚è‚Ş‚¢‚½");
-        }
 
         if (Input.GetMouseButton(0) && transform.position.z >= -limit)
         {
