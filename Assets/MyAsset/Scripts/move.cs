@@ -146,7 +146,8 @@ public class move : MonoBehaviour
 
         if(collision.gameObject.tag == "CheckPoint")
         {
-            Destroy(collision.gameObject);
+
+            collision.gameObject.GetComponent<CheckPoint>().Check();
         }
     }
 
