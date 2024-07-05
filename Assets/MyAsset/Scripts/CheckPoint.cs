@@ -6,6 +6,7 @@ public class CheckPoint : MonoBehaviour
 {
     [SerializeField] private bool move = false;
     [SerializeField] private float movedist = 0.001f;
+    [SerializeField] private GameObject checker;
     private float time = 0;
     // Start is called before the first frame update
     void Start()
@@ -26,5 +27,11 @@ public class CheckPoint : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + movedist * Mathf.Sin(time * Mathf.PI), transform.position.z);
         }
+    }
+
+    public void Check()
+    {
+        Instantiate(checker, transform.position, Quaternion.identity);
+        Destroy(this);
     }
 }
