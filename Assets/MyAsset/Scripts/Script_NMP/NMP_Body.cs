@@ -12,6 +12,8 @@ public class NMP_Body : MonoBehaviour
     private float speed_jump = 1.0f;
     private Rigidbody rb;
     private bool is_ground;
+    [SerializeField]
+    private GameObject nmp_tail;
 
     void Start()
     {
@@ -36,6 +38,14 @@ public class NMP_Body : MonoBehaviour
         {
             is_ground = false;
         }
+
+        Debug.Log(Input.GetAxis("Horizontal"));
+        if (is_ground && (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) && nmp_tail.GetComponent<NMP_Tail>().GetIsCatched())
+        {
+            rb.velocity = Vector3.zero;
+        }
+
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
