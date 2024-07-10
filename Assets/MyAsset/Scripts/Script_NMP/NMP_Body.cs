@@ -12,6 +12,12 @@ public class NMP_Body : MonoBehaviour
     private float speed_jump = 1.0f;
     private Rigidbody rb;
     private bool is_ground;
+
+    public int hp = 3;
+    public int damageCoolTime = 120;
+    public int damageCoolTimeNow = 0;
+    public float knockbackPower = 10.0f;
+
     [SerializeField]
     private GameObject nmp_tail;
 
@@ -54,6 +60,9 @@ public class NMP_Body : MonoBehaviour
                 rb.AddForce(Vector3.up * speed_jump, ForceMode.Impulse);
             }
         }
+
+        damageCoolTimeNow++;
+        damageCoolTimeNow = Mathf.Min(damageCoolTime, damageCoolTimeNow);
     }
 
     public void SetMoveSpeed(float sp)
@@ -65,4 +74,29 @@ public class NMP_Body : MonoBehaviour
     {
         speed_jump = sp;
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        //敵との当たり判定処理
+        if (damageCoolTimeNow >= damageCoolTime)
+        {
+            if (collision.gameObject.tag == "BossEnemy" || collision.gameObject.tag == "Enemy")
+            {
+                hp--;
+                hp = Mathf.Max(hp, 0);
+
+                damageCoolTimeNow = 0;
+
+                //Hitした敵とのベクトルを取りAddForceでノックバック処理を行う
+                Vector3 vec;
+                vec = transform.position - collision.transform.position;
+                Vector3.Normalize(vec);
+
+                float knockback = vec.x * knockbackPower;
+
+                rb.AddForce(new Vector3(knockback,0.0f,0.0f), ForceMode.Impulse);
+            }
+        }
+    }
+
 }
