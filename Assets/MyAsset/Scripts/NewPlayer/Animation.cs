@@ -11,14 +11,14 @@ public class Animation : MonoBehaviour
     [SerializeField]
     private GameObject nmp_tail;
     [SerializeField]
-    private GameObject nmp_pos;
+    private GameObject nmp_body;
 
 
     // 目標の方向ベクトル
     public Transform targetDirection;
     public Transform self;
 
-
+    private bool left_right = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +29,38 @@ public class Animation : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
+
+        //身体の反転
+
+
+        if (!Input.GetMouseButton(0))
+        {
+
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+
+                if (Input.GetAxis("Horizontal") < 0)
+                {
+                    left_right = true;
+                }
+                else
+                {
+                    left_right = false;
+                }
+
+            }
+
+        }
+        if (left_right)
+        {
+            nmp_body.transform.eulerAngles = new Vector3(0.0f, -90.0f, 0.0f);
+            transform.eulerAngles = new Vector3(0.0f, -90.0f, 0.0f);
+        }
+        else
+        {
+            nmp_body.transform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
+            transform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
+        }
 
         if (!this.GetComponent<Animator>().GetBool("flg_move") &&
             !this.GetComponent<Animator>().GetBool("flg_jump") &&
@@ -57,7 +89,7 @@ public class Animation : MonoBehaviour
         //ジャンプ
         RaycastHit hit;
 
-            if (Physics.Raycast(nmp_pos.transform.position, new Vector3(0.0f, -1.0f, 0.0f), out hit, 1.0f))
+            if (Physics.Raycast(nmp_body.transform.position, new Vector3(0.0f, -1.0f, 0.0f), out hit, 1.0f))
             {
                 if (hit.collider.tag == "Field")
                 {
@@ -86,7 +118,6 @@ public class Animation : MonoBehaviour
         {
             this.GetComponent<Animator>().SetBool("flg_fly", false);
 
-            transform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
 
         }
         if (Input.GetMouseButton(0))
@@ -96,7 +127,18 @@ public class Animation : MonoBehaviour
             this.GetComponent<Animator>().SetBool("flg_move", false);
 
             this.transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+            if (left_right)
+            {
+                this.transform.localScale = new Vector3(-10.0f, 10.0f, 10.0f);
+            }
+            else
+            {
+                this.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
+            }
+
         }
+ 
+
         if (Input.GetMouseButtonUp(0))
         {
             this.GetComponent<Animator>().SetBool("flg_swing", false);

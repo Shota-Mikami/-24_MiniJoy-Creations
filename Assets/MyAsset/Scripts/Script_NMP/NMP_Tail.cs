@@ -19,6 +19,7 @@ public class NMP_Tail : MonoBehaviour
     private Rigidbody rb;
 
     private bool is_catched = true;
+    private bool left_right = true;
 
     [SerializeField] private GameObject body;
     [SerializeField] private GameObject wind;
@@ -30,6 +31,26 @@ public class NMP_Tail : MonoBehaviour
 
     void Update()
     {
+        //左右検知
+        if (!Input.GetMouseButton(0))
+        {
+
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+
+                if (Input.GetAxis("Horizontal") < 0)
+                {
+                    left_right = true;
+                }
+                else
+                {
+                    left_right = false;
+                }
+
+            }
+
+        }
+
         //ハンマー回転
         if (Input.GetMouseButton(0) && is_catched)
         {
@@ -73,7 +94,16 @@ public class NMP_Tail : MonoBehaviour
         //ハンマー物理演算管理
         if (is_catched)
         {
-            transform.eulerAngles = new Vector3(0.0f, 0.0f, vec_throw_z);
+           
+            if (left_right)
+            {
+                transform.eulerAngles = new Vector3(0.0f, 0.0f, -vec_throw_z + 180);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0.0f, 0.0f, vec_throw_z);
+            }
+
             rb.isKinematic = true;
             GetComponent<Collider>().isTrigger = true;
             if (transform.parent.GetComponent<NMP_Catch>().GetIsBall())
