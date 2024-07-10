@@ -39,7 +39,6 @@ public class NMP_Body : MonoBehaviour
             is_ground = false;
         }
 
-        Debug.Log(Input.GetAxis("Horizontal"));
         if (is_ground && (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) && nmp_tail.GetComponent<NMP_Tail>().GetIsCatched())
         {
             rb.velocity = Vector3.zero;
