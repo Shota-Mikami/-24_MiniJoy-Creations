@@ -129,11 +129,11 @@ public class Animation : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
             if (left_right)
             {
-                this.transform.localScale = new Vector3(-10.0f, 10.0f, 10.0f);
+                this.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
             }
             else
             {
-                this.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
+                this.transform.localScale = new Vector3(-10.0f, 10.0f, 10.0f);
             }
 
         }
