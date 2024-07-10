@@ -10,6 +10,7 @@ public class NMP : MonoBehaviour
 {
     [SerializeField] private GameObject player_body_model;
     [SerializeField] private GameObject player_tail_model;
+    [SerializeField] private GameObject player_tail_model2;
 
     [SerializeField] private GameObject body;
     [SerializeField] private GameObject tail;
@@ -71,11 +72,23 @@ public class NMP : MonoBehaviour
         if (tail.GetComponent<NMP_Tail>().GetIsCatched())
         {
             player_tail_model.transform.localPosition = default;
+            if (GetComponent<NMP_Catch>().GetIsBall())
+            {
+                GetComponent<NMP_Catch>().SetPosBall(player_tail_model2.transform.position + Vector3.Normalize(player_tail_model2.transform.position - body.transform.position) * 1.5f);
+            }
             return;
         }
         
         if (player_tail_model)
-            player_tail_model.transform.position = tail.transform.position;
-        
+        {
+            player_tail_model.transform.position = tail.transform.position - Vector3.Normalize(tail.transform.position - body.transform.position);
+            player_tail_model2.transform.position = tail.transform.position - Vector3.Normalize(tail.transform.position - body.transform.position);
+        }
+            
+    }
+
+    public Vector3 GetPosTailModel()
+    {
+        return player_tail_model2.transform.position;
     }
 }
