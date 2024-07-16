@@ -31,7 +31,7 @@ public class NMP_Catch : MonoBehaviour
         {
             RaycastHit hit;
             
-            if (Physics.SphereCast(body.transform.position, radius_catch, body.transform.right, out hit, range_catch))
+            if (Physics.SphereCast(body.transform.position, radius_catch, body.transform.forward, out hit, range_catch))
             {
                 if (hit.collider.tag == "ball")
                 {
@@ -51,7 +51,7 @@ public class NMP_Catch : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(body.transform.position + body.transform.right * range_catch, radius_catch);
+        Gizmos.DrawWireSphere(body.transform.position + body.transform.forward * range_catch, radius_catch);
     }
 
     public void ResetTail()

@@ -6,11 +6,18 @@ public class Destory : DestroyObj
 {
     public override void Damage(int damage, GameObject gameObject)
     {
-        if(gameObject.transform.childCount == 1)
+        Debug.Log("damage!");
+        if (gameObject.transform.childCount == 1)
         {
-            if(gameObject.transform.GetChild(0).tag == "DestroyWall")
+            Debug.Log("gimmick?");
+            if (gameObject.transform.GetChild(0).transform.GetChild(0).tag == "DestroyWall")
             {
                 Destroy(this.gameObject);
+                Debug.Log("destroy");
+            }
+            else
+            {
+                Debug.Log(gameObject.transform.GetChild(0).tag);
             }
         }
     }
