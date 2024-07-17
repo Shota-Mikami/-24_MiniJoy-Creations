@@ -102,6 +102,12 @@ public class NMP_Body : MonoBehaviour
                 HpUI.GetComponent<DrawHp>().SetLifeGauge(hpNow);
             }
         }
+
+        if (collision.gameObject.tag == "CheckPoint")
+        {
+            Debug.Log("チェックポイント");
+            collision.gameObject.GetComponent<CheckPoint>().Check();
+        }
     }
 
 }

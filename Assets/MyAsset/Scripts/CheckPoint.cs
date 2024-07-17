@@ -32,6 +32,6 @@ public class CheckPoint : MonoBehaviour
     public void Check()
     {
         Instantiate(checker, transform.position, Quaternion.identity);
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }
