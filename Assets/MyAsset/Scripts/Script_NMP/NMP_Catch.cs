@@ -9,11 +9,14 @@ public class NMP_Catch : MonoBehaviour
     [SerializeField] private float radius_catch = 1.0f;
     [SerializeField] private float range_catch = 2.0f;
     private GameObject obj_ball = null;
-    
+
+
+    public RectTransform CatchUI;//‚±‚ê‚ÉUI‚ðŽæ‚è•t‚¯‚é
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        CatchUI.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class NMP_Catch : MonoBehaviour
     {
         if (obj_ball)
         {
+            CatchUI.gameObject.SetActive(false);
             obj_ball.transform.position = tail.transform.position;
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -35,6 +39,9 @@ public class NMP_Catch : MonoBehaviour
             {
                 if (hit.collider.tag == "ball")
                 {
+
+                    CatchUI.gameObject.SetActive(true);
+                    CatchUI.position = RectTransformUtility.WorldToScreenPoint(Camera.main, hit.collider.transform.position);//UI‚ÌˆÊ’u‚ÌˆÚ“®
                     if (Input.GetKeyDown(KeyCode.F))
                     {
                         obj_ball = hit.collider.gameObject;
@@ -45,6 +52,11 @@ public class NMP_Catch : MonoBehaviour
                         Destroy(obj_ball.GetComponent<Rigidbody>());
                     }
                 }
+            }
+            else
+            {
+
+                CatchUI.gameObject.SetActive(false);
             }
         }
     }
