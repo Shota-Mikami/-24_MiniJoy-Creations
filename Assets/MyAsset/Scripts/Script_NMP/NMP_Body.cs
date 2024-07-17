@@ -13,7 +13,8 @@ public class NMP_Body : MonoBehaviour
     private Rigidbody rb;
     private bool is_ground;
 
-    public int hp = 3;
+    public int hpMax = 3;
+    public int hpNow;
     public int damageCoolTime = 120;
     public int damageCoolTimeNow = 0;
     public float knockbackPower = 10.0f;
@@ -21,8 +22,11 @@ public class NMP_Body : MonoBehaviour
     [SerializeField]
     private GameObject nmp_tail;
 
+    public GameObject HpUI;
+
     void Start()
     {
+        hpNow = hpMax;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -81,8 +85,8 @@ public class NMP_Body : MonoBehaviour
         {
             if (collision.gameObject.tag == "BossEnemy" || collision.gameObject.tag == "Enemy")
             {
-                hp--;
-                hp = Mathf.Max(hp, 0);
+                hpNow--;
+                hpNow = Mathf.Max(hpNow, 0);
 
                 damageCoolTimeNow = 0;
 
@@ -94,6 +98,8 @@ public class NMP_Body : MonoBehaviour
                 float knockback = vec.x * knockbackPower;
 
                 rb.AddForce(new Vector3(knockback,0.0f,0.0f), ForceMode.Impulse);
+
+                HpUI.GetComponent<DrawHp>().SetLifeGauge(hpNow);
             }
         }
     }

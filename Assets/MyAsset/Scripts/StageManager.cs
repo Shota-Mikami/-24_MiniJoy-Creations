@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField] private GameObject Player;
+    [SerializeField] private GameObject Nmp_body;
 
     [SerializeField] private GameObject CheckPoint;
     [SerializeField] private GameObject GoalPoint;
+    [SerializeField] private GameObject HpUI;
 
     [SerializeField] private Vector3 StartPos;
     [SerializeField] private Vector3 CheckPos;
@@ -19,19 +20,21 @@ public class StageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player.transform.position = RespawnPos;
+        Nmp_body.transform.position = RespawnPos;
     }
 
     // Update is called once per frame
     void Update()
     {
         //リスポーン
-        if(Player.GetComponent<move>().hp <= 0.0f)
+        if(Nmp_body.GetComponent<NMP_Body>().hpNow <= 0.0f)
         {
-            Player.transform.position = RespawnPos;
+            Nmp_body.transform.position = RespawnPos;
             //playerの状況リセット
-            Player.GetComponent<move>().Heel(Player.GetComponent<move>().hpMax);
-            Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            Nmp_body.GetComponent<NMP_Body>().hpNow = Nmp_body.GetComponent<NMP_Body>().hpMax;
+            Nmp_body.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            HpUI.GetComponent<DrawHp>().ReserLifeGuage(Nmp_body.GetComponent<NMP_Body>().hpMax);
         }
 
         //リスポーン更新
