@@ -18,7 +18,7 @@ public class Animation : MonoBehaviour
     public Transform targetDirection;
     public Transform self;
 
-    private bool left_right = false;
+    private bool left_right = true;
     // Start is called before the first frame update
     void Start()
     {
