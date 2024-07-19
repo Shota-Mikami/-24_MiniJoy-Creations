@@ -50,7 +50,7 @@ public class StageManager : MonoBehaviour
         //ÉSÅ[Éã
         if (!GoalPoint)
         {
-            SceneManager.LoadScene("NextSceneName");
+            SceneManager.LoadScene(NextSceneName);
         }
     }
 }
